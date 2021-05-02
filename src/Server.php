@@ -14,7 +14,10 @@ class Server extends Emitter
     public function __construct(string $ip, int $port, array $options = [])
     {
         $this->server = new WSServer(
-            $ip, $port, SWOOLE_PROCESS, SWOOLE_SOCK_TCP | SWOOLE_SSL
+            $ip,
+            $port,
+            SWOOLE_PROCESS,
+            SWOOLE_SOCK_TCP | SWOOLE_SSL
         );
         $this->server->set($options);
         $this->clients = [];
@@ -27,14 +30,11 @@ class Server extends Emitter
 
     public function start(): void
     {
-        $this->server->on('start', function(WSServer $server) {
+        $this->server->on('start', function (WSServer $server) {
             $this->trigger(new Event('start'));
         });
 
         $this->server->on('open', function (WSServer $server, Request $request) {
-            if (isset($this->clients[$request->fd])) {
-                echo "Error!!!!!!!!" . PHP_EOL;
-            }
             $client = new Client($this, $request);
             $this->clients[$request->fd] = $client;
             $client->emit('connected');

@@ -34,7 +34,8 @@ class Client extends Emitter
         return $this->address;
     }
 
-    public function emit($event, ...$data) {
+    public function emit($event, ...$data)
+    {
         $event = new Event($event, ...$data);
         $this->server->push($this->socket, $event);
     }
