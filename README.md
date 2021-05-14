@@ -2,7 +2,7 @@
 SocketIO implementation using RFC6455-compliant websockets only. Built on top of Swoole Websocket Server.
 
 ## Requirements
-- PHP ^7.3
+- PHP >=7.2
 - Swoole ^4.0
 
 ## Install
