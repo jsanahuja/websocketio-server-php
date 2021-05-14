@@ -1,7 +1,7 @@
 {
     "name": "sowe/websocketio",
     "description": "SocketIO implementation using RFC6455-compliant websockets only. Built on top of Swoole Websocket Server.",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "type": "library",
     "license": "MIT",
     "keywords": [

@@ -21,9 +21,9 @@ class Handler
                 $reflection = new \ReflectionFunction($callable);
             }
         } elseif (!is_array($callable)) {
-            $reflection = new ReflectionMethod($callable, '__invoke');
+            $reflection = new \ReflectionMethod($callable, '__invoke');
         } else {
-            $reflection = new ReflectionMethod(...$callable);
+            $reflection = new \ReflectionMethod(...$callable);
         }
 
         $this->requiredArguments = $reflection->getNumberOfRequiredParameters();
