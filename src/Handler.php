@@ -4,13 +4,28 @@ namespace Sowe\WebSocketIO;
 
 class Handler
 {
-    protected $closure;
+    protected $callable;
     protected $requiredArguments;
 
-    public function __construct(callable $closure)
+    public function __construct(callable $callable)
     {
-        $this->closure = $closure;
-        $reflection = new \ReflectionFunction($closure);
+        $this->callable = $callable;
+
+        if ($callable instanceof \Closure) {
+            $reflection = new \ReflectionFunction($callable);
+        } elseif (is_string($callable)) {
+            $parts = explode('::', $callable);
+            if (sizeof($parts) > 1) {
+                $reflection = new \ReflectionMethod(...$parts);
+            } else {
+                $reflection = new \ReflectionFunction($callable);
+            }
+        } elseif (!is_array($callable)) {
+            $reflection = new ReflectionMethod($callable, '__invoke');
+        } else {
+            $reflection = new ReflectionMethod(...$callable);
+        }
+
         $this->requiredArguments = $reflection->getNumberOfRequiredParameters();
     }
 
@@ -20,8 +35,8 @@ class Handler
         if ($argc < $this->requiredArguments) {
             throw new \Exception("Expected " . $this->requiredArguments . " arguments, got " . $argc);
         }
-        $closure = $this->closure;
-        $closure(...$arguments);
+        $callable = $this->callable;
+        $callable(...$arguments);
         return true;
     }
 }
