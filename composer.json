@@ -1,7 +1,7 @@
 {
     "name": "sowe/websocketio",
     "description": "SocketIO implementation using RFC6455-compliant websockets only. Built on top of Swoole Websocket Server.",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "type": "library",
     "license": "MIT",
     "keywords": [
@@ -19,7 +19,7 @@
     "homepage": "https://github.com/jsanahuja/websocketio-server-php",
     "minimum-stability": "stable",
     "require": {
-        "php": "^7.2",
+        "php": ">=7.2",
         "ext-swoole": "^4.0"
     },
     "autoload": {
